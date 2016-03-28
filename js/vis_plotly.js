@@ -16,11 +16,11 @@ var cluster_names = Array.apply(null, Array(30)).map(function(_, i){
 // Defining the target variables
 var target_ts, target_cpd, surrogate_ts, surrogate_cpd;
 
-// creating the plots
-brazil_ts();
 
-function brazil_ts() {
-  Plotly.d3.json("../demo/Brazil/ts.json", function(data){
+function brazil_ts(url) {
+  var dFile = url + "../demo/Brazil/ts.json";
+  console.log(dFile);
+  Plotly.d3.json(dFile, function(data){
     target_ts = data['target']['data'];
     target_cpd = data['target']['cpd'];
 
@@ -98,11 +98,10 @@ function makeCPDts(x, y, cpds, width, name, metric, divName){
 var target_heat, surrogate_heat;
 var heat_divs = ['target_heat', 'surrogate_heat'];
 
-// generating the plot
-brazil_heat();
-
-function brazil_heat() {
-  Plotly.d3.json("../demo/Brazil/amatrix.json", function(data){
+function brazil_heat(url) {
+  var dFile = url + "../demo/Brazil/amatrix.json";
+  console.log(dFile);
+  Plotly.d3.json(dFile, function(data){
     target_heat = data['target'];
     surrogate_heat = data['surrogate'];
 

@@ -16,6 +16,22 @@
   <!-- Custom styles for this template -->
   <link href="css/appearance.css" rel="stylesheet" type="text/css"/>
   <link rel="shortcut icon" href="images/logo.png">
+
+  <script type="text/javascript">
+    function getBaseURL () {
+        var baseURL = "";
+        var baseDocument = "index.html";
+
+        if (document.getElementsByTagName('base').length > 0) {
+            baseURL = document.getElementsByTagName('base')[0].href.replace(baseDocument, "");
+        } else {
+            baseURL = location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/";
+        }
+
+        return baseURL;
+    }  
+    var baseUrl = getBaseURL();
+  </script>
 </head>
 
 <body>
@@ -488,5 +504,12 @@
 <script type="text/javascript" src="packages/plotly/plotly-latest.min.js"></script>
 <!-- Custom js -->
 <script tyep="text/javascript" src="js/vis_plotly.js"></script>
+<script type="text/javascript">
+  // creating the plots
+  brazil_ts(baseUrl);
+
+  // generating the plot
+  brazil_heat(baseUrl);
+</script>
 </body>
 </html>
