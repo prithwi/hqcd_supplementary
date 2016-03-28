@@ -112,6 +112,7 @@ function brazil_heat(url) {
 
 function makeHeat(d, name, divName){
   var _width = $('#' + divName).width();
+  console.log(d['y']);
 
   var heat = {
     z: d['z'],

@@ -34,11 +34,11 @@
     ],
     "y": [
       "Employment",
-      "Energy and Resources",
+      "Energy",
       "Housing",
       "Other",
-      "Other Economic",
-      "Other Government"
+      "Economic",
+      "Government"
     ],
     "z": [
       [
@@ -238,19 +238,19 @@
   "target": {
     "x": [
       "Employment",
-      "Energy and Resources",
+      "Energy",
       "Housing",
       "Other",
-      "Other Economic",
-      "Other Government"
+      "Economic",
+      "Government"
     ],
     "y": [
       "Employment",
-      "Energy and Resources",
+      "Energy",
       "Housing",
       "Other",
-      "Other Economic",
-      "Other Government"
+      "Economic",
+      "Government"
     ],
     "z": [
       [
