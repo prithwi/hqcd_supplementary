@@ -18,7 +18,7 @@ var target_ts, target_cpd, surrogate_ts, surrogate_cpd;
 
 
 function brazil_ts(url) {
-  var dFile = url + "../demo/Brazil/ts.json";
+  var dFile = url + "demo/Brazil/ts.json";
   console.log(dFile);
   Plotly.d3.json(dFile, function(data){
     target_ts = data['target']['data'];
@@ -99,7 +99,7 @@ var target_heat, surrogate_heat;
 var heat_divs = ['target_heat', 'surrogate_heat'];
 
 function brazil_heat(url) {
-  var dFile = url + "../demo/Brazil/amatrix.json";
+  var dFile = url + "demo/Brazil/amatrix.json";
   console.log(dFile);
   Plotly.d3.json(dFile, function(data){
     target_heat = data['target'];
