@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>HQCD Demo</title>
+  <meta charset="utf-8"></meta>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Loading FA -->
+  <link rel="stylesheet" type="text/css" href="./packages/font-awesome-4.5.0/css/font-awesome.min.css">
+  
+  <!-- Loading Bootstrap: flatly -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">  
+
+  <!-- Custom styles for this template -->
+  <link href="css/appearance.css" rel="stylesheet" type="text/css"/>
+  <link rel="shortcut icon" href="images/logo.png">
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top navbar-transparent">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">
+          <!-- <img src="./images/logo.png" width="28px" class="img-responsive">  -->
+          HQCD Demo
+      </a>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-main">
+      <!-- Dom elements -->
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#overview">Overview</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Case Study: Brazil<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#sub-total">Total Protest</a></li>
+            <li><a href="#sub-protests">Protest by Categories</a></li>
+            <li><a href="#amatrix">Explaining the protests</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Resources -->
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+           <a href="./resources/main_ecml.pdf">
+               <span class="glyphicon glyphicon-book"></span>
+               &nbsp;Read paper
+           </a>
+        </li>
+        <li>
+          <a href="https://github.com/prithwi/hqcd_supplementary">
+              <span class="fa fa-github"></span>
+              &nbsp;Fork me on Github
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+</nav>
+
+<div class="container" style="margin-top: 70px">
+  <div id="overview" class="jumbotron" style="background-color:#BDC3C7">
+    <div class="row">
+    <h2 class="text-center">
+      Hierarchical Quickest Change Detection
+    </h2>
+      <p style="font-size: 1.2em;">
+      <em>Changepoints</em> are points in a time-series surrounding which
+      the underlying time-series distribution changes significantly.
+      <em>Quickest Change Detection</em>
+      is the problem of declaring such changepoints with minimal delay 
+      under maximum allowable probability of false alarm. <em>HQCD</em>
+      find changepoints for possibly inhomogeneous sources via a hierarchical
+      framework.
+      </p>
+
+      <div class="col-sm-6 col-xs-12">
+        <p class="text-left">HQCD Overview:</p>
+        <ul class="mylist">
+          <li>Sources grouped into targets and surrogates</li>
+          <ul>
+            <li>Targets: sources of importance</li>
+            <li>Surrogates: sources which can explain targets</li>
+          </ul>
+          <li>Upper bounds probability of  false alarm under the source-target
+          importance relationship - <em>ML-PFA</em></li>
+          <li>Runs in real-time using specialized sequential Monte-Carlo
+          simulations</li>
+          <li>Infers causal connections between targets and surrogates via detected changepoints</li>
+        </ul>
+      </div>
+      <div class="col-sm-6 hidden-xs">
+        <br/><br/>
+        <a href="#">
+          <img class="img-responsive img-rounded" src="./images/model.svg"
+            alt="CPD Illustration Image"></img> 
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /jumbotron -->
+
+  <div id="brazil" class="row">
+  <h2>Case Study: Brazil</h2>
+    <p>Brazil witnessed its largest and protest during mid-2013 - often termed as 
+    the <a href="https://en.wikipedia.org/wiki/2013_protests_in_Brazil" target="_blank">Brazilian Spring</a>.
+    We analyze Brazilian spring using HQCD (and compare against several
+    state-of-the art methods)
+    to identify the tipping point in the protest timeline by simultaneously
+    modeling the different protest types and protest related chatter in Twitter.
+    </p>
+  </div>
+
+  <div id="sub-total" class="row">
+    <h3>Total Protests</h3>
+    <div class="col-sm-4">
+      <br/><br/>
+      <ul>
+        <li>Major Events leading to Mass protests
+          <ul>
+            <li><a href="http://www.theguardian.com/world/2013/jun/21/brazil-protest-social-media">Jun 21-23:</a>
+            Brazilian Spring saw around 250,000 protesters on Jun 17</li>
+          </ul>
+        </li>
+        <br/>
+        <li>HQCD found Jun 16th as the changepoint in total protests</li>
+      </ul>
+    </div>
+
+    <div class="col-sm-8">
+      <div class="clearfix" id="br_ts"><!--Inject Plotly-->
+      </div>
+    </div>
+  </div>
+
+
+  <div id="sub-protests" class="row">
+    <h3>Protests by Categories</h3>
+    <p>Total protests aggregates different kinds of protests which masks several
+    key events. HQCD finds those events by categories below.</p>
+    <!--Protest Tab Names-->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#sub_energy" aria-controls="sub_energy" role="tab" data-toggle="tab">Energy and Resources</a></li>
+      <li role="presentation"><a href="#sub_house" aria-controls="sub_house" role="tab" data-toggle="tab">Housing</a></li>
+      <li role="presentation"><a href="#sub_govt" aria-controls="sub_govt" role="tab" data-toggle="tab">Other Government</a></li>
+      <li role="presentation"><a href="#sub_otr" aria-controls="sub_otr" role="tab" data-toggle="tab">Other</a></li>
+      <li role="presentation"><a href="#sub_econ" aria-controls="sub_econ" role="tab" data-toggle="tab">Other Economic</a></li>
+      <li role="presentation"><a href="#sub_emp" aria-controls="sub_emp" role="tab" data-toggle="tab">Employment</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="row tab-pane fade in active" id="sub_energy">
+        <div class="col-sm-4">
+        <br/><br/>
+          <ul>
+            <li>Major Energy and Resources related events leading to Mass protests
+            <ul>
+               <li><a href="http://oglobo.globo.com/rio/moradores-do-alto-da-boa-vista-protestam-contra-proibicao-de-vans-8569817#">Jun 02</a>:
+                 Protest against ban of vans which were used as alternate means of
+               transport</li>
+               <li><a href="http://oglobo.globo.com/rio/moradores-do-alto-da-boa-vista-protestam-contra-proibicao-de-vans-8569817#">Jun 02</a>:
+                 Evacuation of landless people in Sao Paulo
+               </li>
+            </ul>
+            </li>
+            <br/>
+            <li>HQCD declares significant change in this category to be Jun 02</li>
+          </ul>
+        </div>
+        <div class="col-sm-8">
+          <div class="clearfix" id="br_energy_ts">
+          </div>
+        </div>
+      </div>
+
+      <div class="row tab-pane fade" id="sub_house">
+        <div class="col-sm-4">
+          <br/><br/>
+          <ul>
+            <li>Major Housing related events leading to Mass protests
+            <ul>
+               <li><a href="http://www.jb.com.br/pais/noticias/2013/06/14/protesto-por-moradias-populares-fecha-entorno-do-estadio-mane-garrincha/">Jun 14</a>:
+                 Protests for affordable housing near the National Stadium at the Capital
+                 </li>
+               <li><a href="http://sao-paulo.estadao.com.br/noticias/geral,manifestantes-protestam-na-paulista-por-moradia-e-contra-a-copa-do-mundo,1042485">Jun 14</a>:
+                 Protests against World Cup questioning evacuation of residents
+               </li>
+            </ul>
+            <br/>
+            </li>
+            <li>HQCD declares significant change in this category to be Jun 16</li>
+          </ul>
+        </div>
+        <div class="col-sm-8">
+          <div class="clearfix" id="br_house_ts">
+          </div>
+        </div>
+      </div>
+
+      <div class="row tab-pane fade" id="sub_govt">
+        <div class="col-sm-4">
+          <br/><br/>
+          <ul>
+            <li>Major Govt. related events leading to Mass protests
+            <ul>
+               <li><a href="http://oglobo.globo.com/brasil/estudantes-protestam-em-congresso-da-uee-contra-violencia-policial-nos-atos-por-uma-tarifa-de-transporte-menor-8701875">Jun 15</a>:
+                 Protests against police violance in the state of Sao Paulo
+                 </li>
+            </ul>
+            <br/>
+            </li>
+            <li>HQCD declares significant change in this category to be Jun 16</li>
+          </ul>
+        </div>
+        <div class="col-sm-8">
+          <div class+"clearfix" id="br_govt_ts">
+          </div>
+        </div>
+      </div>
+      
+      <div class="row tab-pane fade" id="sub_otr">
+        <div class="col-sm-4">
+          <br/><br/>
+          <ul>
+            <li>Major Other related events leading to Mass protests
+            <ul>
+               <li><a href="http://www.jb.com.br/pais/noticias/2013/06/21/manifestantes-fecham-oito-rodovias-em-sao-paulo/">Jun 21</a>:
+                 Protestors close highways</li>
+               <li><a href="http://oglobo.globo.com/brasil/manifestantes-entram-em-confronto-com-pm-em-belo-horizonte-8783581">Jun 21</a>:
+                 Violent protests in cities that hosted the Confederation cup</li>
+            </ul>
+            <br/>
+            </li>
+            <li>HQCD declares significant change in this category to be Jun 23</li>
+          </ul>
+        </div>
+        <div class="col-sm-8">
+          <div class="clearfix" id="br_otr_ts">
+           </div>
+        </div>
+      </div>
+
+      <div class="row tab-pane fade" id="sub_econ">
+        <div class="col-sm-4">
+          <br/><br/>
+          <ul>
+            <li>Major Economic related events leading to Mass protests
+            <ul>
+               <li><a href="http://oglobo.globo.com/brasil/estudantes-da-une-ubes-fazem-manifestacao-pacifica-em-brasilia-8828967">Jun 27</a>:
+                 Student protests demanding better allocation of public funding towards education</li>
+               <li><a href="http://www.estadao.com.br/noticias/geral,protesto-em-curitiba-reune-1-5-mil-pessoas,1048402">Jun 29</a>:
+                 Protest marches demanding better GDP investment policies</li>
+            </ul>
+            <br/>
+            </li>
+            <li>HQCD declares significant change in this category to be Jun 30</li>
+          </ul>
+        </div>
+        <div class="col-sm-8">
+          <div class="clearfix" id="br_econ_ts">
+          </div>
+        </div>
+      </div>
+
+      <div class="row tab-pane fade" id="sub_emp">
+        <div class="col-sm-4">
+          <br/><br/>
+          <ul>
+            <li>Major Employment related events leading to Mass protests
+            <ul>
+               <li><a href="http://www.jb.com.br/rio/noticias/2013/08/16/professores-estaduais-em-greve-fazem-novo-protesto-no-palacio-guanabara/">Aug 16</a>:
+                 Teachers and professionals demanding increase in wages</li>
+               <li><a href="http://oglobo.globo.com/rio/protesto-reune-cerca-mil-professores-em-copacabana-9600866">Aug 18</a>:
+                 Protests against ultimatum set by the municipality w.r.t. wage protests</li>
+            </ul>
+            <br/>
+            </li>
+            <li>HQCD declares significant change in this category to be Aug 18</li>
+
+          </ul>
+        </div>
+        <div class="col-sm-8">
+          <div class="clearfix" id="br_emp_ts">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [> /end sub-protests <] -->
+  <div id="amatrix">
+    <h3>Explaining Brazilian Spring</h3>
+    <p>Significant changes for different protest categories occurred at different
+    timepoints. We are interested in analysing how changes in these categories 
+    influence each other.
+    HQCD provides a changepoint correlation matrix for target-target
+    and target-surrogate as below. Through these matrices we can find the interaction
+    strengths.
+    </p>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="clearfix" id="target_heat">
+         <!-- Inject Plotly for Amatrix-data  -->
+         </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="clearfix" id="surrogate_heat">
+           <!-- Inject Plotly for Amatrix-surrogates -->
+        </div>   
+      </div>
+    </div>
+    <div class="row">
+       <h4>Analysis</h4>
+       <ul>
+         <li>Other Economic and Employment were affected by Housing related protests.
+       Although, total number of housing protests were much smaller compared to
+       the other categories.</li>
+         <li>Housing and employment shares influences from similar Twitter 
+           chatter clusters(cluster 01 and 26).
+           - Strong interaction came from social sphere
+         </li>
+         <li>Housing and Other Economic are weakly related through Twitter 
+               chatter clusters
+               - interactions manifested via category relation only.
+         </li>
+       </ul>
+    </div>
+  </div>
+  <!-- /end amatrix -->
+
+  
+  <!-- <div id="clusters"> -->
+    <!-- <div class="row"> -->
+      <!-- <h2>Surrogate Layer</h2> -->
+      <!-- [> [> Protest Tab Names <] <] -->
+      <!-- <ul class="nav nav-pills" role="tablist"> -->
+        <!-- <li class="active"><a href="#cluster-00" data-toggle="tab" aria-expanded="true">Group 1</a></li> -->
+        <!-- <li><a href="#cluster-01" data-toggle="tab">Group 2</a></li> -->
+        <!-- <li><a href="#cluster-02" data-toggle="tab">Group 3</a></li> -->
+        <!-- <li><a href="#cluster-03" data-toggle="tab">Group 4</a></li> -->
+        <!-- <li><a href="#cluster-04" data-toggle="tab">Group 5</a></li> -->
+        <!-- [> [> Remaining clusters <] <] -->
+        <!-- <li class="dropdown"> -->
+        <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true"> -->
+            <!-- Other Groups<span class="caret"></span></a> -->
+          <!-- <ul class="dropdown-menu"> -->
+            <!-- <li><a data-toggle="tab" href="#cluster-05">Group 6</a></li> -->
+            <!-- <li><a data-toggle="tab" href="#cluster-06">Group 7</a></li> -->
+            <!-- <li><a data-toggle="tab" href="#cluster-07">Group 8</a></li> -->
+            <!-- <li><a data-toggle="tab" href="#cluster-08">Group 9</a></li> -->
+            <!-- <li><a data-toggle="tab" href="#cluster-09">Group 10</a></li> -->
+            <!-- <li><a data-toggle="tab" href="#cluster-10">Group 11</a></li> -->
+            <!-- <li><a data-toggle="tab" href="#cluster-11">Group 12</a></li> -->
+            <!-- <li><a data-toggle="tab" href="#cluster-12">Group 13</a></li> -->
+            <!-- <li><a data-toggle="tab" href="#cluster-13">Group 14</a></li> -->
+          <!-- </ul> -->
+        <!-- </li> -->
+      <!-- </ul> -->
+    <!-- </div> -->
+    <!-- <div id="twitter" class="tab-content"> -->
+      <!-- <div class="row tab-pane fade in active" id="cluster-00"> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <p class="lead">Group 1</p> -->
+        <!-- </div> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <div class="clearfix" id="cluster-00_ts"> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+
+      <!-- <div class="row tab-pane fade" id="cluster-01"> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <p class="lead">Group 2</p> -->
+        <!-- </div> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <div class="clearfix" id="cluster-01_ts"> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+
+      <!-- <div class="row tab-pane fade" id="cluster-02"> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <p class="lead">Group 3</p> -->
+        <!-- </div> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <div class="clearfix" id="cluster-02_ts"> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+      <!-- <div class="row tab-pane fade" id="cluster-03"> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <p class="lead">Group 4</p> -->
+        <!-- </div> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <div class="clearfix" id="cluster-03_ts"> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+      <!-- <div class="row tab-pane fade" id="cluster-04"> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <p class="lead">Group 5</p> -->
+        <!-- </div> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <div class="clearfix" id="cluster-04_ts"> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+      <!-- <div class="row tab-pane fade" id="cluster-05"> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <p class="lead">Group 6</p> -->
+        <!-- </div> -->
+        <!-- <div class="col-sm-6"> -->
+          <!-- <div class="clearfix" id="cluster-05_ts"> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+  <!-- /end sub-protests -->
+
+  <div class="row">
+     <h3>Comments </h2>
+     <div id="disqus_thread"></div>
+     <script type="text/javascript">
+         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+         var disqus_shortname = 'hqcd-supplementary'; // required: replace example with your forum shortname
+
+         /* * * DON'T EDIT BELOW THIS LINE * * */
+         (function() {
+             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+         })();
+     </script>
+     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+     </div>
+  </div>
+  <!-- comments -->
+</div>
+<!-- /wrapper -->
+
+<footer class="footer">
+  <div class="container-fluid">
+        <!-- style="margin-bottom: -40px;"> -->
+    <div class="row">
+     <div class="col-sm-4">
+       <span>&copy; 2016 Prithwish Chakraborty</span>
+     </div>
+     <div class="col-sm-4">
+       <span>
+         <a href="mailto:prithwi@vt.edu">
+           <i class="glyphicon glyphicon-envelope"></i> | Email
+         </a>
+         &nbsp; &nbsp;
+         <a href="http://people.cs.vt.edu/~prithwi/">
+           <i class="glyphicon glyphicon-user"></i> | Homepage
+         </a>
+       </span>
+     </div>
+
+     <div class="col-sm-4">
+       <span>
+        <a href="https://dac.cs.vt.edu/">
+          <i class="glyphicon glyphicon-dashboard"></i> | Discover Analytics Center</a>
+       </span>
+     </div>
+   </div>
+  </div>
+</footer>
+
+<!-- <script src="./packages/Flat-UI/js/vendor/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Loading other packages -->
+<script src="./packages/bootstrap3/js/bootstrap.min.js"></script>
+
+<!-- Loading Plotly -->
+<script type="text/javascript" src="packages/plotly/plotly-latest.min.js"></script>
+<!-- Custom js -->
+<script tyep="text/javascript" src="js/vis_plotly.js"></script>
+</body>
+</html>
