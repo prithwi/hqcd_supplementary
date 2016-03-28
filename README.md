@@ -9,7 +9,7 @@ setup. Typically, we classify the sources into two groups:
    are of not prime importance.
 
 A walkthrough demo of HQCD as applied on the Brazilian Spring can be seen at
-[https://prithwi.github.io/hqcd-supplementary](https://prithwi.github.io/hqcd-supplementary).
+[https://prithwi.github.io/hqcd_supplementary](https://prithwi.github.io/hqcd_supplementary).
 
 # Datasets:
 
