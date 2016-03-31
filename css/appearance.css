@@ -36,6 +36,17 @@ body {
    padding-top: 80px;
 }
 
+@media screen and (max-width: 978px) {
+    .container, .row {
+      padding:1px;
+      margin:1px;
+    }
+
+    body {
+      padding:1px;
+    }
+}
+
 /* @media screen and (max-width: 991px){ */
     /* .container { min-width: 90%;} */
 /* } */
